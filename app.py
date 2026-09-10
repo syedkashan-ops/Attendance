@@ -169,18 +169,26 @@ if menu == "Employee Visit":
     if open_visit is None:
         st.subheader("Step 1 — Capture GPS for IN")
         if st.button("📍 Get Current GPS for IN", use_container_width=True):
-            loc = get_location()
-            if loc:
-                st.session_state["in_location"] = loc
-                st.rerun()
+    loc = get_location()
 
-        if st.session_state["in_location"]:
-            st.success("IN GPS is ready.")
-            st.subheader("Step 2 — Mark IN")
-            if st.button("🟢 MARK IN", type="primary", use_container_width=True):
-                ok, msg = location_ok(st.session_state["in_location"])
-                if not ok:
-                    st.error(msg)
+    if loc and loc.get("latitude") is not None:
+        st.session_state["in_location"] = loc
+        st.rerun()
+    else:
+        st.warning(
+            "GPS location is not available yet. "
+            "Please wait 5–10 seconds and tap the GPS button again."
+        )
+
+if st.session_state["in_location"]:
+    st.success("IN GPS is ready.")
+    st.subheader("Step 2 — Mark IN")
+
+    if st.button("🟢 MARK IN", type="primary", use_container_width=True):
+        ok, msg = location_ok(st.session_state["in_location"])
+
+        if not ok:
+            st.error(msg)
                 else:
                     try:
                         existing = find_open_visit(employee_code)
