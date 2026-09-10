@@ -184,7 +184,7 @@ if st.session_state["in_location"]:
     st.success("IN GPS is ready.")
     st.subheader("Step 2 — Mark IN")
 
-    if st.button("🟢 MARK IN", type="primary", use_container_width=True):
+if st.button("🟢 MARK IN", type="primary", use_container_width=True):
         ok, msg = location_ok(st.session_state["in_location"])
 
         if not ok:
