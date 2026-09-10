@@ -39,27 +39,45 @@ def now_local():
 
 
 def get_location():
-    # Import only when the employee actually requests GPS.
     from streamlit_geolocation import streamlit_geolocation
 
     st.caption("Turn ON phone Location/GPS and allow location permission.")
-    loc = streamlit_geolocation() 
+
+    loc = streamlit_geolocation()
+
+    st.write("GPS response:", loc)
 
     if loc and loc.get("latitude") is not None:
         result = {
             "latitude": float(loc["latitude"]),
             "longitude": float(loc["longitude"]),
-            "accuracy": float(loc["accuracy"]) if loc.get("accuracy") is not None else None,
+            "accuracy": (
+                float(loc["accuracy"])
+                if loc.get("accuracy") is not None
+                else None
+            ),
         }
+
         st.success("GPS location captured.")
         st.write(f"Latitude: `{result['latitude']:.6f}`")
         st.write(f"Longitude: `{result['longitude']:.6f}`")
+
         if result["accuracy"] is not None:
-            st.write(f"Accuracy: approximately `{result['accuracy']:.0f} metres`")
+            st.write(
+                f"Accuracy: approximately `{result['accuracy']:.0f} metres`"
+            )
+
         return result
 
     if loc and loc.get("error"):
-        st.error("Location could not be obtained. Turn ON GPS/Location and allow permission.")
+        st.error(f"GPS Error: {loc['error']}")
+
+    else:
+        st.warning(
+            "GPS location has not been returned yet. "
+            "Please tap the GPS icon again and wait a few seconds."
+        )
+
     return None
 
 
