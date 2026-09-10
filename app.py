@@ -43,7 +43,7 @@ def get_location():
     from streamlit_geolocation import streamlit_geolocation
 
     st.caption("Turn ON phone Location/GPS and allow location permission.")
-    loc = streamlit_geolocation(key="gps_location")
+    loc = streamlit_geolocation() 
 
     if loc and loc.get("latitude") is not None:
         result = {
