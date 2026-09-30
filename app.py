@@ -844,7 +844,7 @@ with st.sidebar:
     st.title("Customer Care Day")
     menu = st.radio("Menu", ["Employee Visit", "Admin / Reports"])
     st.divider()
-    st.caption("Live records are stored in Google Sheets. Daily Excel reports are archived in GitHub.")
+    st.caption("Live records are stored in Google Sheets. Daily Excel reports are archived.")
 
 
 if menu == "Employee Visit":
