@@ -39,3 +39,12 @@ Do not upload the Google service-account JSON or private keys to GitHub.
 ## Deployment
 
 Replace the existing Attendance repository files with this `attendance` folder. Keep the existing Streamlit Secrets unchanged.
+
+## V10.1 Production Performance Edition
+- Employee IN/OUT no longer generates Excel files or calls GitHub.
+- GitHub daily report sync is admin-triggered from Admin / Reports.
+- Outlet Master is cached for 30 minutes and uses an in-memory code index.
+- Visits mirror refresh is reduced to once per 15 minutes per running process; successful local IN/OUT writes update the shared mirror immediately.
+- Open-visit checks use an in-memory employee index instead of repeated Pandas filtering.
+- Reporting/GitHub modules load only after admin authentication.
+- PWA icon/manifest payload is cached instead of rebuilt on every rerun.
